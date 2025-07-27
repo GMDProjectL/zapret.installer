@@ -118,7 +118,7 @@ install_zapret() {
     rm -f /opt/zapret/ipset/zapret-hosts-user.txt
     cp -r /opt/zapret/zapret.cfgs/lists/list-basic.txt /opt/zapret/ipset/zapret-hosts-user.txt || error_exit "не удалось автоматически скопировать хостлист"
     cp -r /opt/zapret/zapret.cfgs/lists/ipset-discord.txt /opt/zapret/ipset/ipset-discord.txt || error_exit "не удалось автоматически скопировать ипсет"
-    ln -s /opt/zapret.installer/zapret-control.sh /bin/zapret
+
     if [[ INIT_SYSTEM = systemd ]]; then
         systemctl daemon-reload
     fi
@@ -152,7 +152,7 @@ update_zapret() {
     if [[ -d /opt/zapret.installer/ ]]; then
         cd /opt/zapret.installer/ && git fetch origin main; git reset --hard origin/main
         rm -f /bin/zapret
-        ln -s /opt/zapret.installer/zapret-control.sh /bin/zapret
+
     fi
     manage_service restart
     bash -c 'read -p "Нажмите Enter для продолжения..."'
@@ -167,7 +167,7 @@ update_script() {
         cd /opt/zapret.installer/ && git fetch origin main; git reset --hard origin/main
     fi
     rm -f /bin/zapret
-    ln -s /opt/zapret.installer/zapret-control.sh /bin/zapret
+
     bash -c 'read -p "Нажмите Enter для продолжения..."'
     exec "$0" "$@"
 }
@@ -179,7 +179,7 @@ update_installed_script() {
     if [[ -d /opt/zapret.installer/ ]]; then
         cd /opt/zapret.installer/ && git fetch origin main; git reset --hard origin/main
         rm -f /bin/zapret
-        ln -s /opt/zapret.installer/zapret-control.sh /bin/zapret
+
         manage_service restart
     fi
     bash -c 'read -p "Нажмите Enter для продолжения..."'
